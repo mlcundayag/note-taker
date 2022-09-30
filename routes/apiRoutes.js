@@ -1,21 +1,26 @@
-const express = require('express')
+const apiNotes = require('express').Router()
+const { readFromFile, readAndAppend } = require('../helper/fsUtils');
 
-app.get('/api/notes', (req, res) => {
-    res.json(database);
+
+apiNotes.get('/notes', (req, res) => {
     console.info(`${req.method} request received to get notes`);
+    readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)))
   });
 
-app.post('/api/notes', (req, res) => {
+apiNotes.post('/notes', (req, res) => {
     console.info(`${req.method} request received to add a note`);
     const { title, text } = req.body;
-    if (title && text) {
+
+    if (req.body) {
         const newNotes = {
             title, 
             text,
-
         };
-        const notesString = JSON.stringify(newNotes)
-
-        fs.writeFile()
+        readAndAppend(newNotes, './db/db.json');
+        res.json('Note added successfully 🚀');
+    } else {
+        res.error('Error in adding note')
     }
-})  
+});
+
+module.exports = apiNotes
