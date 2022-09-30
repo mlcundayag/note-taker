@@ -1,5 +1,6 @@
 const apiNotes = require('express').Router()
 const { readFromFile, readAndAppend } = require('../helper/fsUtils');
+const uuid = require('../helper/uuid')
 
 
 apiNotes.get('/notes', (req, res) => {
@@ -15,6 +16,7 @@ apiNotes.post('/notes', (req, res) => {
         const newNotes = {
             title, 
             text,
+            id: uuid(),
         };
         readAndAppend(newNotes, './db/db.json');
         res.json('Note added successfully 🚀');
@@ -22,5 +24,10 @@ apiNotes.post('/notes', (req, res) => {
         res.error('Error in adding note')
     }
 });
+
+apiNotes.delete('/notes/:id', (req, res) => 
+    console.info(`${req.method} request received to delete a note`)
+
+)
 
 module.exports = apiNotes
