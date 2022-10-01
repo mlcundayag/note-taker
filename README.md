@@ -34,7 +34,7 @@ I was able to successfully create a functioning note taker without errors.
 
   ## Screenshots
   
-  ![Screenshot](../note-taker/image/server-screenshot.png)
+  ![Screenshot](https://github.com/mlcundayag/note-taker/blob/main/image/server-screenshot.png)
 
 
   ## Links
